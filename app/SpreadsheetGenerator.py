@@ -1,6 +1,7 @@
 import pandas as pd
 from app.ExcelProcessor import ExcelProcessor
 from app.ExcelStyler import ExcelStyler
+from app.ExcelBuilder import ExcelBuilder
 
 
 class SpreadsheetGenerator:
@@ -12,26 +13,31 @@ class SpreadsheetGenerator:
 
         clipboard_dataframe = excel_processor.read_clipboard_to_dataframe()
         excel_processor.write_dataframe_to_excel(clipboard_dataframe)
-        excel_processor.add_column_to_excel(self.stores)
+
+        excel_builder = ExcelBuilder(file_name)
+        excel_builder.add_column_to_excel(self.stores)
 
         excel_styler = ExcelStyler(file_name)
 
         for index, store in enumerate(self.stores, start=2):
-            excel_processor.add_countif_formula(2, store, f'Q{index}')
+            excel_builder.add_countif_formula(2, store, f'Q{index}')
             excel_styler.apply_number_format('Dados', 17, index, '0')
 
-        excel_processor.save()
+        excel_builder.save()
         excel_styler.close()
+        excel_builder.close()
         excel_processor.close()
 
     @staticmethod
     def transfer_data(source_file, target_file, start_row, end_row, start_col, end_col):
         target_sheet_name = "Contagem"
+
         ExcelProcessor.copy_excel_data(source_file, 'Dados',
                                        target_file, target_sheet_name,
                                        start_row, end_row, start_col, end_col)
 
         excel_processor = ExcelProcessor(target_file[:-5], True)
+        excel_builder = ExcelBuilder(target_file[:-5])
 
         # Header data
         header_data = {
@@ -40,21 +46,20 @@ class SpreadsheetGenerator:
             'E1': 'Verificação'
         }
 
-        # Add title header and save
-        excel_processor.add_title_header(target_sheet_name, header_data)
+        excel_builder.add_title_header(target_sheet_name, header_data)
 
         tr = 2
         for i in range(1, excel_processor.get_max_row(target_sheet_name)):
-            excel_processor.add_if_formula(target_sheet_name, 3, tr, 4, tr,
-                                           "OK", "Divergência", f"E{tr}")
+            excel_builder.add_if_formula(target_sheet_name, 3, tr, 4, tr,
+                                         "OK", "Divergência", f"E{tr}")
             tr += 1
 
-        excel_processor.save()
+        excel_builder.save()
+        excel_builder.close()
         excel_processor.close()
 
         excel_styler = ExcelStyler(target_file[:-5])
 
-        # Apply styles and set column width
         for column in range(1, 6):
             excel_styler.apply_style_to_header(target_sheet_name, column)
             excel_styler.set_column_width(target_sheet_name, column)
