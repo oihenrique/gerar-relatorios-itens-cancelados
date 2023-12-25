@@ -1,7 +1,4 @@
 import openpyxl
-from openpyxl.utils import get_column_letter
-from openpyxl.styles import Alignment
-from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
 import pyperclip as pc
 import pandas as pd
 import io

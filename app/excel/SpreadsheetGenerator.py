@@ -1,7 +1,7 @@
 import pandas as pd
-from app.ExcelProcessor import ExcelProcessor
-from app.ExcelStyler import ExcelStyler
-from app.ExcelBuilder import ExcelBuilder
+from app.excel.ExcelProcessor import ExcelProcessor
+from app.excel.ExcelStyler import ExcelStyler
+from app.excel.ExcelBuilder import ExcelBuilder
 
 
 class SpreadsheetGenerator:
