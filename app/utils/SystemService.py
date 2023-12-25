@@ -1,21 +1,18 @@
 import os.path
 
-
 class SystemService:
     @staticmethod
-    def remove_store_sheet(directory, remove_list):
+    def remove_store_sheets(directory, remove_list):
         try:
             if os.path.exists(directory):
-                archives = os.listdir(directory)
-
-                for archive in archives:
-                    archive_path = os.path.join(directory, archive)
-                    for file in remove_list:
-                        if str(file) in str(archive):
-                            if os.path.isfile(archive_path):
-                                os.remove(archive_path)
-
+                for file_to_remove in remove_list:
+                    file_path = os.path.join(directory, file_to_remove)
+                    if os.path.exists(file_path) and os.path.isfile(file_path):
+                        os.remove(file_path)
+                        print(f"Removed: {file_path}")
+                    else:
+                        print(f"File not found: {file_path}")
             else:
-                print(f"Directory {directory} doesn't exists.")
+                print(f"Directory {directory} doesn't exist.")
         except Exception as e:
             print(f"Error while removing: {str(e)}")

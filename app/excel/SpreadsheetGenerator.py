@@ -82,20 +82,17 @@ class SpreadsheetGenerator:
             store_cell = ws.iloc[row_index - 1, -1]
             quantity = (ws[1] == store_cell).sum()
 
-            if store_cell == store_number and quantity > 0:
+            if store_cell == store_number:
                 if store_number < 10:
                     sheet_name = f'{date}_Contagem_R0{store_number}'
                 else:
                     sheet_name = f'{date}_Contagem_R{store_number}'
 
-                start_index = next_x
-                end_index = next_x + quantity - 1
+                if quantity != 0:
+                    start_index = next_x
+                    end_index = next_x + quantity - 1
 
-                self.transfer_data(data_file, f'./data/store_sheets/{sheet_name}.xlsx', start_index, end_index,
-                                   'Código', 'Descrição')
+                    self.transfer_data(data_file, f'./data/store_sheets/{sheet_name}.xlsx', start_index, end_index,
+                                       'Código', 'Descrição')
 
-                next_x = end_index + 1
-            else:
-                empty_store_sheets.append(store_number)
-
-        SystemService.remove_store_sheet(os.path.abspath('data/store_sheets'), empty_store_sheets)
+                    next_x = end_index + 1

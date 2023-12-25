@@ -10,6 +10,6 @@ generator = SpreadsheetGenerator(stores)
 
 # generator.create_spreadsheet_from_clipboard('./data/24-12-23_Cancelados')
 
-# generator.generate_spreadsheets('./data/24-12-23_Cancelados.xlsx', '24-12-23')
+# generator.generate_spreadsheets('data/24-12-23_Cancelados.xlsx', '24-12-23')
 
-send_email()
+# send_email()
