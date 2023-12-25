@@ -75,7 +75,7 @@ class SpreadsheetGenerator:
 
     def generate_spreadsheets(self, data_file, date):
         ws = pd.read_excel(data_file, sheet_name=0, header=None)
-        kk = []
+        empty_store_sheets = []
         next_x = 0
 
         for row_index, store_number in enumerate(self.stores, start=2):
@@ -96,6 +96,6 @@ class SpreadsheetGenerator:
 
                 next_x = end_index + 1
             else:
-                kk.append(store_number)
+                empty_store_sheets.append(store_number)
 
-        SystemService.remove_store_sheet(os.path.abspath('data/store_sheets'), kk)
+        SystemService.remove_store_sheet(os.path.abspath('data/store_sheets'), empty_store_sheets)
