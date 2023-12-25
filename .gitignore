@@ -1,2 +1,6 @@
 /excel/
 /plan_cancelados/
+/app/utils/lista_emails_lojas.JSON
+/app/utils/lista_emails_teste.JSON
+/app/email/email_body.txt
+/.env

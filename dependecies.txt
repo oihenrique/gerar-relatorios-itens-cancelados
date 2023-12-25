@@ -1,3 +1,5 @@
-pandas
+decouple
 openpyxl
+pandas
 pyperclip
+smtplib
