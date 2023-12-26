@@ -1,0 +1,32 @@
+{
+  "name": "relatorio_cancelados_gui",
+  "version": "1.0.0",
+  "description": "graphic interface for users",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oihenrique/gerar-relatorios-itens-cancelados.git"
+  },
+  "keywords": [
+    "python",
+    "electron",
+    "relatorio",
+    "openpyxl",
+    "pandas",
+    "excel",
+    "electron"
+  ],
+  "author": "Henrique Gomes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oihenrique/gerar-relatorios-itens-cancelados/issues"
+  },
+  "homepage": "https://github.com/oihenrique/gerar-relatorios-itens-cancelados#readme",
+  "devDependencies": {
+    "electron": "^28.1.0"
+  }
+}

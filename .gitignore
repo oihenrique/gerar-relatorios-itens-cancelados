@@ -4,3 +4,8 @@
 /app/config/lista_emails_teste.JSON
 /app/config/email_body.txt
 /.env
+/gui/node_modules/
+/data/
+__pycache__
+/.idea/
+/.venv/
