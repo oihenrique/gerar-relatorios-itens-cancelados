@@ -3,9 +3,10 @@ from time import sleep
 
 from app.config.Credentials import Credentials
 from app.email.EmailServiceManager import EmailServiceManager
+from app.utils.SystemService import SystemService
 
 
-def send_email():
+def send_email(date):
     credentials = Credentials()
 
     sender_email = credentials.sender_email
@@ -13,11 +14,17 @@ def send_email():
 
     email_service = EmailServiceManager(sender_email, sender_password)
 
+    attach_folder = SystemService.get_attach_folder(date)
+
     email_list = email_service.get_email_list('../app/config/lista_emails_teste.JSON')
-    file_list = email_service.get_attach_list('../data/store_sheets')
+    file_list = email_service.get_attach_list(attach_folder)
     email_service.set_message('../app/config/email_body.txt')
 
-    base_path = os.path.abspath('../data/store_sheets')
+    if len(file_list) == 0:
+        print('Attach path not found')
+        return
+
+    base_path = os.path.abspath(attach_folder)
 
     for store in email_list:
         for file_name in file_list:
@@ -35,7 +42,3 @@ def send_email():
                 break
 
         sleep(18)
-
-
-if __name__ == "__main__":
-    send_email()

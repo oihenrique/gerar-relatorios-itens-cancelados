@@ -23,7 +23,7 @@ def generate_spreadsheets(file_name):
     else:
         absolute_path = os.path.abspath(f'data/{file_name}_cancelados')
 
-    generator.generate_spreadsheets(absolute_path, file_name)
+    return generator.generate_spreadsheets(absolute_path, file_name)
 
 
 if __name__ == "__main__":
@@ -42,7 +42,11 @@ if __name__ == "__main__":
             else:
                 generate_spreadsheets(date)
         elif function_name == 'send_email':
-            send_email()
+            date = sys.argv[2] if len(sys.argv) > 2 else None
+            if date is None:
+                print('date argument required')
+            else:
+                send_email(date)
         else:
             print(f'Unknown function: {function_name}')
     else:

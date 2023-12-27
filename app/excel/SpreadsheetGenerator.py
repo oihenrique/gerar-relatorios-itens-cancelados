@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 from app.excel.ExcelProcessor import ExcelProcessor
 from app.excel.ExcelStyler import ExcelStyler
 from app.excel.ExcelBuilder import ExcelBuilder
@@ -74,8 +73,8 @@ class SpreadsheetGenerator:
         excel_styler.close()
 
     def generate_spreadsheets(self, data_file, date):
-        folder = SystemService.create_date_folders(date)
-        print(folder)
+        SystemService.create_date_folders(date)
+        folder = SystemService.get_attach_folder(date)
 
         ws = pd.read_excel(data_file, sheet_name=0, header=None)
         next_x = 0

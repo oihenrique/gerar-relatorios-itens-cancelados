@@ -32,11 +32,12 @@ async function generate_spreadsheets() {
 
 async function send_email() {
     try {
+        const dateInput = document.getElementById('date-input').value;
         let options = {
             mode: 'text',
             pythonOptions: ['-u'],
             pythonPath: window.python.path('../.venv/Scripts/python.exe'),
-            args: ['send_email']
+            args: ['send_email', formatDate(dateInput)]
         }
         const scriptPath = window.python.path('../main.py');
 

@@ -1,6 +1,5 @@
 import locale
 import os.path
-import shutil
 
 from datetime import datetime
 
@@ -42,14 +41,11 @@ class SystemService:
         except Exception as e:
             print(f"Error while creating folder {folder_path}: {str(e)}")
 
-        return folder_path
-
     @staticmethod
     def create_date_folders(date):
         current_day = date.split('-')[0]
         current_month = date.split('-')[1]
         current_year = date.split('-')[2]
-        final_folder = ''
 
         locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
         if current_month == str(datetime.now().month):
@@ -64,7 +60,22 @@ class SystemService:
                 SystemService.create_folder(f'../data/store_sheets/{current_year}/{month_name}')
             elif not SystemService.verify_if_folder(f'../data/store_sheets/{current_year}/{month_name}/',
                                                     f'{current_day}-{current_month}-{current_year}'):
-                final_folder = SystemService.create_folder(f'../data/store_sheets/{current_year}/{month_name}/'
-                                                           + f'{current_day}-{current_month}-{current_year}')
+                SystemService.create_folder(f'../data/store_sheets/{current_year}/{month_name}/'
+                                            + f'{current_day}-{current_month}-{current_year}')
 
-            return final_folder
+    @staticmethod
+    def get_attach_folder(date):
+        current_day = date.split('-')[0]
+        current_month = date.split('-')[1]
+        current_year = date.split('-')[2]
+
+        locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
+        if current_month == str(datetime.now().month):
+            month_name = str(datetime.now().strftime("%B"))
+        else:
+            month_name = datetime.strptime(current_month, "%m").strftime("%B")
+
+        final_folder = (f'../data/store_sheets/{current_year}/{month_name}/'
+                        + f'{current_day}-{current_month}-{current_year}')
+
+        return final_folder
