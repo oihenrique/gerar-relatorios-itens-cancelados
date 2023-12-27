@@ -39,6 +39,7 @@ def send_email(date):
                       f'Email: {email_list.get(store)}\n'
                       f'Título: {subject}\n'
                       f'Anexo: {path}\n')
+
                 break
 
         sleep(18)

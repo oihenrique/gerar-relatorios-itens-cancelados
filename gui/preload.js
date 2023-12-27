@@ -7,13 +7,9 @@ contextBridge.exposeInMainWorld('python', {
   homedir: () => os.homedir(),
   path: (joinStr) => path.join(__dirname, joinStr),
   runPython: (name, options) => {
-    console.log('Running Python script:', options);
-    PythonShell.run(name, options).then(message => {
-      console.log(message)
-    });
+    PythonShell.run(name, options);
   }
 })
-
 
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
