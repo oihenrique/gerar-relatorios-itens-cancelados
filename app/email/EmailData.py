@@ -1,5 +1,12 @@
 class EmailData:
+    """
+    A class to store email-related data such as sender email, recipient email, subject, message, and attachments.
+    """
+
     def __init__(self):
+        """
+        Initialize an instance of the EmailData class.
+        """
         self._body_text_path = None
         self._sender_email = ''
         self._sender_password = ''

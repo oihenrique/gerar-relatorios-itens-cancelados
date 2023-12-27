@@ -7,10 +7,26 @@ from app.utils.SystemService import SystemService
 
 
 class SpreadsheetGenerator:
+    """
+    A class for generating and processing spreadsheets using Excel files and data.
+    """
+
     def __init__(self, stores):
+        """
+        Initialize the SpreadsheetGenerator with a list of store numbers.
+
+        Parameters:
+            stores (list): List of store numbers.
+        """
         self.stores = stores
 
     def create_spreadsheet_from_clipboard(self, file_name):
+        """
+        Create a spreadsheet from the clipboard data.
+
+        Parameters:
+            file_name (str): The name of the Excel file to be created.
+        """
         excel_processor = ExcelProcessor(file_name)
 
         clipboard_dataframe = excel_processor.read_clipboard_to_dataframe()
@@ -32,6 +48,17 @@ class SpreadsheetGenerator:
 
     @staticmethod
     def transfer_data(source_file, target_file, start_row, end_row, start_col, end_col):
+        """
+        Transfer data from one Excel file/sheet to another.
+
+        Parameters:
+            source_file (str): The source Excel file.
+            target_file (str): The target Excel file.
+            start_row (int): The starting row index for the data to transfer.
+            end_row (int): The ending row index for the data to transfer.
+            start_col (str): The starting column letter for the data to transfer.
+            end_col (str): The ending column letter for the data to transfer.
+        """
         target_sheet_name = "Contagem"
 
         ExcelProcessor.copy_excel_data(source_file, 'Dados',
@@ -73,6 +100,13 @@ class SpreadsheetGenerator:
         excel_styler.close()
 
     def generate_spreadsheets(self, data_file, date):
+        """
+        Generate spreadsheets for each store based on the data file.
+
+        Parameters:
+            data_file (str): The data Excel file.
+            date (str): The date for folder and sheet naming.
+        """
         SystemService.create_date_folders(date)
         folder = SystemService.get_attach_folder(date)
 

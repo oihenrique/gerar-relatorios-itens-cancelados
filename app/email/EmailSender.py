@@ -4,6 +4,12 @@ from email.mime.multipart import MIMEMultipart
 
 
 def send_email_smtp(email):
+    """
+    Send an email using SMTP with the provided EmailData object.
+
+    Parameters:
+        email (EmailData): An EmailData object containing email-related information.
+    """
     message = MIMEMultipart()
     message['From'] = email.sender_email
     message['To'] = email.recipient_email

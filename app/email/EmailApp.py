@@ -7,6 +7,12 @@ from app.utils.SystemService import SystemService
 
 
 def send_email(date):
+    """
+    Send emails with attachments to a list of recipients.
+
+    Parameters:
+        date (str): The date used for folder and email subject naming.
+    """
     credentials = Credentials()
 
     sender_email = credentials.sender_email
