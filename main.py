@@ -1,3 +1,5 @@
+import sys
+import os.path
 from app.excel.SpreadsheetGenerator import SpreadsheetGenerator
 from app.email.EmailApp import send_email
 
@@ -8,8 +10,40 @@ stores = [2, 6, 8, 10, 11, 12, 15, 16, 20, 21, 22,
 
 generator = SpreadsheetGenerator(stores)
 
-# generator.create_spreadsheet_from_clipboard('./data/24-12-23_Cancelados')
 
-# generator.generate_spreadsheets('data/24-12-23_Cancelados.xlsx', '24-12-23')
+def create_spreadsheet_from_clipboard(file_name):
+    absolute_path = os.path.abspath(f'../data/{file_name}_cancelados')
 
-# send_email()
+    generator.create_spreadsheet_from_clipboard(absolute_path)
+
+
+def generate_spreadsheets(file_name):
+    if __name__ == "__main__":
+        absolute_path = os.path.abspath(f'../data/{file_name}_cancelados.xlsx')
+    else:
+        absolute_path = os.path.abspath(f'data/{file_name}_cancelados')
+
+    generator.generate_spreadsheets(absolute_path, file_name)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        function_name = sys.argv[1]
+        if function_name == 'create_spreadsheet_from_clipboard':
+            date = sys.argv[2] if len(sys.argv) > 2 else None
+            if date is None:
+                print('date argument required')
+            else:
+                create_spreadsheet_from_clipboard(date)
+        elif function_name == 'generate_spreadsheets':
+            date = sys.argv[2] if len(sys.argv) > 2 else None
+            if date is None:
+                print('date argument required')
+            else:
+                generate_spreadsheets(date)
+        elif function_name == 'send_email':
+            send_email()
+        else:
+            print(f'Unknown function: {function_name}')
+    else:
+        print("No function specified.")

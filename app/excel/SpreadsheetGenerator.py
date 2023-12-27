@@ -1,10 +1,7 @@
-import os.path
-
 import pandas as pd
 from app.excel.ExcelProcessor import ExcelProcessor
 from app.excel.ExcelStyler import ExcelStyler
 from app.excel.ExcelBuilder import ExcelBuilder
-from app.utils.SystemService import SystemService
 
 
 class SpreadsheetGenerator:
@@ -75,7 +72,6 @@ class SpreadsheetGenerator:
 
     def generate_spreadsheets(self, data_file, date):
         ws = pd.read_excel(data_file, sheet_name=0, header=None)
-        empty_store_sheets = []
         next_x = 0
 
         for row_index, store_number in enumerate(self.stores, start=2):
@@ -92,7 +88,7 @@ class SpreadsheetGenerator:
                     start_index = next_x
                     end_index = next_x + quantity - 1
 
-                    self.transfer_data(data_file, f'./data/store_sheets/{sheet_name}.xlsx', start_index, end_index,
+                    self.transfer_data(data_file, f'../data/store_sheets/{sheet_name}.xlsx', start_index, end_index,
                                        'Código', 'Descrição')
 
                     next_x = end_index + 1

@@ -40,6 +40,7 @@ class EmailServiceManager:
 
     def get_attach_list(self, folder_path):
         absolute_path = os.path.abspath(folder_path)
+
         file_list = []
         for i in listdir(absolute_path):
             if '.xlsx' in i:

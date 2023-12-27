@@ -28,5 +28,8 @@
   "homepage": "https://github.com/oihenrique/gerar-relatorios-itens-cancelados#readme",
   "devDependencies": {
     "electron": "^28.1.0"
+  },
+  "dependencies": {
+    "python-shell": "^5.0.0"
   }
 }
