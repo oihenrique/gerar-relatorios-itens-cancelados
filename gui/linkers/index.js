@@ -4,7 +4,7 @@ async function create_spreadsheet_from_clipboard() {
         let options = {
             mode: 'text',
             pythonPath: window.python.path('../.venv/Scripts/python.exe'),
-            args: ['create_spreadsheet_from_clipboard', dateInput]
+            args: ['create_spreadsheet_from_clipboard', formatDate(dateInput)]
         }
         const scriptPath = window.python.path('../main.py');
 
@@ -20,7 +20,7 @@ async function generate_spreadsheets() {
         let options = {
             mode: 'text',
             pythonPath: window.python.path('../.venv/Scripts/python.exe'),
-            args: ['generate_spreadsheets', dateInput]
+            args: ['generate_spreadsheets', formatDate(dateInput)]
         }
         const scriptPath = window.python.path('../main.py');
 
@@ -45,3 +45,14 @@ async function send_email() {
         console.error('Erro durante a execução do script Python:', error);
     }
 }
+
+function formatDate(inputDate) {
+    const parts = inputDate.split('-');
+    if (parts.length === 3) {
+      const [year, month, day] = parts;
+      return `${day}-${month}-${year}`;
+    } else {
+      console.error('Formato de data inválido:', inputDate);
+      return inputDate;
+    }
+  }
