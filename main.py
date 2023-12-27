@@ -2,6 +2,7 @@ import sys
 import os.path
 from app.excel.SpreadsheetGenerator import SpreadsheetGenerator
 from app.email.EmailApp import send_email
+from app.utils.SystemService import SystemService
 
 stores = [2, 6, 8, 10, 11, 12, 15, 16, 20, 21, 22,
           23, 24, 25, 29, 30, 35, 37, 47, 48, 49,
@@ -9,6 +10,7 @@ stores = [2, 6, 8, 10, 11, 12, 15, 16, 20, 21, 22,
           70, 80, 81, 83]
 
 generator = SpreadsheetGenerator(stores)
+SystemService.create_main_data_folder()
 
 
 def create_spreadsheet_from_clipboard(file_name):

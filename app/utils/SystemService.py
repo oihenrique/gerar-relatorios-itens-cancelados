@@ -22,14 +22,31 @@ class SystemService:
             print(f"Error while removing: {str(e)}")
 
     @staticmethod
-    def verify_if_folder(target_folder, year):
+    def verify_if_folder(target_folder, folder_name):
         absolute_path = os.path.abspath(target_folder)
 
         try:
             folders = os.listdir(absolute_path)
-            return year in folders
+            return folder_name in folders
         except FileNotFoundError:
             return False
+
+    @staticmethod
+    def get_attach_folder(date):
+        current_day = date.split('-')[0]
+        current_month = date.split('-')[1]
+        current_year = date.split('-')[2]
+
+        locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
+        if current_month == str(datetime.now().month):
+            month_name = str(datetime.now().strftime("%B"))
+        else:
+            month_name = datetime.strptime(current_month, "%m").strftime("%B")
+
+        final_folder = (f'../data/store_sheets/{current_year}/{month_name}/'
+                        + f'{current_day}-{current_month}-{current_year}')
+
+        return final_folder
 
     @staticmethod
     def create_folder(folder_path):
@@ -64,18 +81,9 @@ class SystemService:
                                             + f'{current_day}-{current_month}-{current_year}')
 
     @staticmethod
-    def get_attach_folder(date):
-        current_day = date.split('-')[0]
-        current_month = date.split('-')[1]
-        current_year = date.split('-')[2]
-
-        locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
-        if current_month == str(datetime.now().month):
-            month_name = str(datetime.now().strftime("%B"))
-        else:
-            month_name = datetime.strptime(current_month, "%m").strftime("%B")
-
-        final_folder = (f'../data/store_sheets/{current_year}/{month_name}/'
-                        + f'{current_day}-{current_month}-{current_year}')
-
-        return final_folder
+    def create_main_data_folder():
+        for i in range(0, 3):
+            if not SystemService.verify_if_folder('../', 'data'):
+                SystemService.create_folder('../data')
+            elif not SystemService.verify_if_folder('../data/', 'store_sheets'):
+                SystemService.create_folder('../data/store_sheets')
