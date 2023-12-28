@@ -57,7 +57,7 @@ meros 20 minutos.
 
 ## Configurações antes do uso
 
-Primeiramente, crie um arquivo `.env` na pasta `root` do projeto com as informações de login da conta pela qual os
+Primeiramente, rode o comando `npm install` (necessário Node.js) para instalar as dependências, em seguida crie um arquivo `.env` na pasta `root` do projeto com as informações de login da conta pela qual os
 e-mails serão enviados dentro:
 
 ```env
