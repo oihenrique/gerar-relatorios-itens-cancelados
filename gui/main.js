@@ -1,11 +1,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
+if (require('electron-squirrel-startup')) app.quit();
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: './assets/icon.png',
+    icon: './assets/icon.ico',
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
