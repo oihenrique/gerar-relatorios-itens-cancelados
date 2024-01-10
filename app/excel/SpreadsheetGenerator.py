@@ -72,7 +72,7 @@ class SpreadsheetGenerator:
         header_data = {
             'C1': 'Quant. Loja',
             'D1': 'Quant. Sistema',
-            'E1': 'Verificação'
+            'E1': 'Status'
         }
 
         excel_builder.add_title_header(target_sheet_name, header_data)
@@ -114,7 +114,7 @@ class SpreadsheetGenerator:
         next_x = 0
 
         for row_index, store_number in enumerate(self.stores, start=2):
-            store_cell = ws.iloc[row_index - 1, -1]
+            store_cell = ws.iloc[row_index - 1, -2]
             quantity = (ws[1] == store_cell).sum()
 
             if store_cell == store_number:

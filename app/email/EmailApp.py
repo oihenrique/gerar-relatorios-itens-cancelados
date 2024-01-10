@@ -22,9 +22,9 @@ def send_email(date):
 
     attach_folder = SystemService.get_attach_folder(date)
 
-    email_list = email_service.get_email_list('../app/config/lista_emails_teste.JSON')
+    email_list = email_service.get_email_list('./resources/app/config/lista_emails_teste.JSON')
     file_list = email_service.get_attach_list(attach_folder)
-    email_service.set_message('../app/config/email_body.txt')
+    email_service.set_message('./resources/app/config/email_body.txt')
 
     if len(file_list) == 0:
         print('Attach path not found')

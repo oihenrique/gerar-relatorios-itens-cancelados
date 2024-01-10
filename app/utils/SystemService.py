@@ -9,6 +9,33 @@ class SystemService:
     """
 
     @staticmethod
+    def absolute_file_paths(directory, filename):
+        """
+        Retrieve the absolute paths of files within a specified directory, searching for a specific filename.
+
+        Parameters:
+        - directory (str): The base directory to start the search.
+        - filename (str): The name of the file to search for.
+
+        Returns: - str: The absolute path of the file if found, or 'file not found' if the file is not present in
+        the directory.
+
+        Example:
+        ```python
+        result = YourClassName.absolute_file_paths('data', '27-12-2023.xlsx')
+        print(result)
+        ```
+        """
+        path_list = []
+        for root, dirs, files in os.walk(os.path.abspath(directory)):
+            for file in files:
+                path_list.append(os.path.join(root, file))
+                if filename == file:
+                    return os.path.join(root, file)
+
+        return 'file not found'
+
+    @staticmethod
     def remove_store_sheets(directory, remove_list):
         """
         Remove specified files from the given directory.
@@ -23,7 +50,7 @@ class SystemService:
         try:
             if os.path.exists(directory):
                 for file_to_remove in remove_list:
-                    file_path = os.path.join(directory, file_to_remove)
+                    file_path = SystemService.absolute_file_paths(directory, file_to_remove)
                     if os.path.exists(file_path) and os.path.isfile(file_path):
                         os.remove(file_path)
                         print(f"Removed: {file_path}")
@@ -71,7 +98,7 @@ class SystemService:
             datetime.strptime(str(current_month), "%m").strftime("%B")
 
         final_folder = f'../data/store_sheets/{current_year}/{month_name}/' \
-                       f'{current_day}-{current_month}-{current_year}'
+                       f'{str(current_day).zfill(2)}-{str(current_month).zfill(2)}-{current_year}'
 
         return os.path.abspath(final_folder)
 
@@ -105,23 +132,26 @@ class SystemService:
         Returns:
             None
         """
-        current_day, current_month, current_year = map(int, date.split('-'))
+        current_day = int(date.split('-')[0])
+        current_month = int(date.split('-')[1])
+        current_year = int(date.split('-')[2])
 
         locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
         month_name = datetime.now().strftime("%B") if current_month == datetime.now().month else \
             datetime.strptime(str(current_month), "%m").strftime("%B")
 
-        for i in range(3):
-            year_folder = f'../data/store_sheets/{current_year}'
-            month_folder = f'{year_folder}/{month_name}'
-            day_folder = f'{month_folder}/{current_day}-{current_month}-{current_year}'
+        base_folder = '../data/store_sheets'
+        year_folder = os.path.join(base_folder, str(current_year))
+        month_folder = os.path.join(year_folder, month_name)
+        day_folder = os.path.join(month_folder, f'{str(current_day).zfill(2)}-{str(current_month).zfill(2)}-{current_year}')
 
-            if not SystemService.verify_if_folder('../data/store_sheets/', current_year):
-                SystemService.create_folder(year_folder)
-            elif not SystemService.verify_if_folder(month_folder):
-                SystemService.create_folder(month_folder)
-            elif not SystemService.verify_if_folder(day_folder):
-                SystemService.create_folder(day_folder)
+        if not SystemService.verify_if_folder(base_folder, str(current_year)):
+            SystemService.create_folder(year_folder)
+        if not SystemService.verify_if_folder(month_folder, month_name):
+            SystemService.create_folder(month_folder)
+        if not SystemService.verify_if_folder(day_folder,
+                                              f'{str(current_day).zfill(2)}-{str(current_month).zfill(2)}-{current_year}'):
+            SystemService.create_folder(day_folder)
 
     @staticmethod
     def create_main_data_folder():
