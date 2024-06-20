@@ -81,7 +81,7 @@ o texto que será enviado no corpo do e-mail. Esse texto pode ser feito com html
 
 ## Contato
 
-Você me chamar no: [LinkedIn](https://www.linkedin.com/in/oihenriquegomes/).
+Você pode me chamar no: [LinkedIn](https://www.linkedin.com/in/oihenriquegomes/).
 
 ## Licença
 
